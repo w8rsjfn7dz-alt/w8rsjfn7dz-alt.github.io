@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"><rect width="180" height="180" rx="35" fill="#0d172b"/><rect x="8" y="8" width="164" height="164" rx="28" fill="#236bbd"/><text x="90" y="102" text-anchor="middle" fill="white" font-size="29" font-family="Arial,sans-serif" font-weight="900">PAGESAT</text><path d="M47 123h86" stroke="#b2dcff" stroke-width="4"/><text x="90" y="154" text-anchor="middle" fill="white" font-size="22" font-family="Arial" font-weight="bold">kr</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0fff0"/><stop offset=".46" stop-color="#b9efc8"/><stop offset="1" stop-color="#66bf89"/></linearGradient>
+ <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#dbf9df"/><stop offset="1" stop-color="#93d9ab"/></linearGradient>
+ <linearGradient id="letters" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#247247"/><stop offset="1" stop-color="#145233"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#286344" flood-opacity=".32"/></filter>
+</defs>
+<rect width="180" height="180" rx="36" fill="url(#bg)"/>
+<path d="M20 16Q90 -5 161 20" fill="none" stroke="#fff" stroke-opacity=".68" stroke-width="5"/>
+<rect x="13" y="13" width="154" height="151" rx="30" fill="url(#panel)" stroke="#e9fff0" stroke-width="2" filter="url(#shadow)"/>
+<rect x="26" y="33" width="128" height="90" rx="19" fill="#fff" fill-opacity=".55" stroke="#fff" stroke-opacity=".9"/>
+<text x="90" y="83" text-anchor="middle" fill="url(#letters)" font-size="26" font-family="Arial,Helvetica,sans-serif" font-weight="900" letter-spacing=".1">PAGESAT</text>
+<path d="M52 103h76" stroke="#58ab75" stroke-width="4" stroke-linecap="round"/>
+<g filter="url(#shadow)"><rect x="60" y="125" width="60" height="29" rx="14.5" fill="#399565"/><text x="90" y="145" text-anchor="middle" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="bold">kr</text></g>
+</svg>
