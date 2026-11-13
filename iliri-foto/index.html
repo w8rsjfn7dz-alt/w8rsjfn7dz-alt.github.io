@@ -1,11 +1,11 @@
 <!doctype html><html lang="sq"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#132e50"><meta name="apple-touch-icon" content="iliri-foto"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="ILIRI FOTO">
+<meta name="theme-color" content="#132e50"><meta name="apple-touch-icon" content="iliri-foto"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="ILIRI FOTO">
 <meta name="description" content="Bashko, zmadho dhe ruaj fotografi falas, në cilësi të lartë.">
 <title>ILIRI FOTO • Bashko foto</title><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./logo.jpg" type="image/svg+xml"><link rel="apple-touch-icon" href="./logo.jpg">
 <style>
 :root{color-scheme:light;--dark:#12263d;--blue:#116eae;--line:#dbe5ee;--bg:#edf3f8}
-*{box-sizing:border-box}html,body{margin:0;font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--dark)}
+*{box-sizing:border-box}html,body{margin:0;font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--dark);width:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 button,select,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}
 header{background:linear-gradient(120deg,#091d31,#17527e);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 14px;gap:12px;position:sticky;top:0;z-index:5;box-shadow:0 3px 15px #0d294333}
 .brand{display:flex;align-items:center;gap:10px}.brand img{width:52px;height:52px;object-fit:cover;border-radius:12px;box-shadow:0 0 0 1px #ffffff44}.brand strong{font-size:19px;display:block}.brand small{font-size:11px;display:block;color:#d2eaff}
@@ -85,7 +85,8 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
 @media(max-width:850px){
  #editor{margin-inline:-7px;border-radius:0}
  #editor .stagewrap{padding:3px}
- #editor .stage{height:clamp(360px,76svh,740px);min-height:0;border-radius:3px}
+ #editor .stage{height:clamp(330px,56svh,560px);min-height:0;border-radius:3px}
+ #editor .empty-add{align-self:flex-start;margin-top:clamp(20px,6svh,65px)}
  #editor .ratios{display:flex;overflow-x:auto;gap:6px}
  #editor .ratios button{flex:1 0 58px;min-width:58px}
  #editor .ratios button[data-aspect="screen"]{flex-basis:78px}
@@ -173,7 +174,14 @@ html.editor-full,html.editor-full body{overflow:hidden}
 "use strict";const $=s=>document.getElementById(s), S={photos:[],sel:-1,layout:"grid",shape:"rect",aspect:"screen",gap:8,bg:"#ffffff",view:100,drag:null};
 const cv=$("canvas"),ctx=cv.getContext("2d",{alpha:false});let boxesNow=[];
 function msg(t,error){$("status").textContent=t;$("status").style.color=error?"#ba2b2b":"#167347"}
-function aspect(){if(S.aspect==="screen")return window.innerWidth/Math.max(1,window.innerHeight);let t=S.aspect.split(":").map(Number);return t[0]/t[1]}
+// Proporcioni i telefonit mbetet njësoj në Safari dhe nga ikona e Home Screen.
+function getScreenRatio(){
+ const sw=window.screen&&window.screen.width,sh=window.screen&&window.screen.height;
+ if(sw>0&&sh>0)return sw/sh;
+ const v=window.visualViewport;
+ return (v?v.width:window.innerWidth)/Math.max(1,v?v.height:window.innerHeight);
+}
+function aspect(){if(S.aspect==="screen")return getScreenRatio();let t=S.aspect.split(":").map(Number);return t[0]/t[1]}
 function dim(){let r=aspect(),long=Number($("size").value),w=r>=1?long:Math.round(long*r),h=r>=1?Math.round(long/r):long;
 let ww=Number($("customW").value),hh=Number($("customH").value);
 if(ww>0&&hh>0){w=ww;h=hh}else if(ww>0){w=ww;h=Math.round(w/r)}else if(hh>0){h=hh;w=Math.round(h*r)}
@@ -330,6 +338,16 @@ async function save(type,share){let el=$(share?"share":type==="image/png"?"png":
  }catch(e){if(e.name!=="AbortError")msg(e.message||"Ruajtja dështoi.",true)}
  finally{el.disabled=false;el.textContent=old}}
 $("jpg").onclick=()=>save("image/jpeg",false);$("png").onclick=()=>save("image/png",false);$("share").onclick=()=>save("image/jpeg",true);
-window.addEventListener("resize",render);refresh();
+let viewportFrame=0;
+function onViewportChange(){
+ if(viewportFrame)return;
+ viewportFrame=requestAnimationFrame(()=>{viewportFrame=0;render();if(S.aspect==="screen")dimInfo()});
+}
+window.addEventListener("resize",onViewportChange);
+window.addEventListener("orientationchange",onViewportChange);
+if(window.visualViewport){
+ window.visualViewport.addEventListener("resize",onViewportChange);
+}
+refresh();
 })();
 </script></body></html>
