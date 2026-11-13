@@ -1,0 +1,166 @@
+<!doctype html><html lang="sq"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#132e50"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="ILIRI FOTO">
+<meta name="description" content="Bashko, zmadho dhe ruaj fotografi falas, në cilësi të lartë.">
+<title>ILIRI FOTO • Bashko foto</title><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./logo.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./logo.svg">
+<style>
+:root{color-scheme:light;--dark:#12263d;--blue:#116eae;--line:#dbe5ee;--bg:#edf3f8}
+*{box-sizing:border-box}html,body{margin:0;font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--dark)}
+button,select,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}
+header{background:linear-gradient(120deg,#091d31,#17527e);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 14px;gap:12px;position:sticky;top:0;z-index:5;box-shadow:0 3px 15px #0d294333}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:52px;height:52px;object-fit:cover;border-radius:12px;box-shadow:0 0 0 1px #ffffff44}.brand strong{font-size:19px;display:block}.brand small{font-size:11px;display:block;color:#d2eaff}
+main{max-width:1350px;margin:auto;padding:12px;display:grid;grid-template-columns:minmax(0,1fr) 315px;gap:12px}
+.panel{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:0 3px 15px #0b294211}
+.head{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;border-bottom:1px solid var(--line);gap:6px}.head h1,.head h2{font-size:16px;margin:0}.actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.btn{color:#153650;border-radius:10px;border:1px solid #c6d7e4;background:white;padding:10px 12px;font-weight:650}.btn.sm{font-size:12px;padding:8px 9px}.btn.primary{color:white;border-color:#126eb0;background:linear-gradient(#2794d6,#0f64a3)}.btn.dark{color:white;border-color:#183958;background:#183958}
+.stagewrap{padding:10px;background:#f2f6fa}.stage{height:min(69vh,720px);min-height:330px;overflow:auto;background:repeating-conic-gradient(#e2e6eb 0% 25%,#fcfdfe 0% 50%) 50%/20px 20px;border-radius:10px;display:flex;justify-content:safe center;align-items:flex-start}
+canvas{max-width:none;flex-shrink:0;display:block;box-shadow:0 2px 16px #0f27484c;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
+.hint{text-align:center;font-size:12px;color:#5d7588;padding:8px 0 0}.zoomrow{display:flex;align-items:center;gap:8px;padding:10px 13px;border-top:1px solid var(--line)}
+.zoomrow label{font-size:12px;font-weight:650;min-width:112px}.zoomrow input{min-width:60px;flex:1}.zoomrow b{font-size:12px;min-width:43px}
+.strip{display:flex;gap:8px;padding:10px;overflow:auto;min-height:90px}.thumb{width:74px;height:75px;min-width:74px;border:3px solid transparent;border-radius:10px;padding:0;overflow:hidden;background:#eff5f9;position:relative}
+.thumb.on{border-color:#078ee4}.thumb img{width:100%;height:100%;object-fit:cover}.thumb span{position:absolute;top:3px;left:3px;padding:2px 5px;border-radius:4px;color:#fff;background:#12273fbd;font-size:11px}
+.thumb.add{border:2px dashed #8bb5d3;display:grid;place-items:center;font-size:30px;color:#1678b4}.emptyhint{align-self:center;color:#6a8092;font-size:12px}
+.sidebar{display:flex;flex-direction:column;gap:12px}.content{padding:13px}.content h2{font-size:16px;margin:0 0 13px}.field{margin:0 0 14px}.field:last-child{margin-bottom:0}.field>label{display:block;font-size:12px;color:#445e74;font-weight:700;margin-bottom:6px}
+select,input[type=number]{width:100%;border:1px solid #c0d0df;border-radius:9px;padding:10px;background:white;color:#182f44;min-height:43px}
+input[type=range]{accent-color:#1684c5;flex:1;min-width:40px}.range{display:flex;align-items:center;gap:9px}.range output{font-weight:bold;font-size:12px;min-width:43px;text-align:right}
+.layouts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.layouts button{border:1px solid #c7d7e5;border-radius:9px;background:#f6fafc;min-height:52px;color:#294b65;font-size:12px}.layouts button strong{display:block;font-size:20px}.layouts button.on{background:#dcefff;border-color:#187ebb;color:#07528c}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rowbuttons{display:flex;gap:7px;flex-wrap:wrap}.info{font-size:12px;color:#587186;line-height:1.45}.info strong{color:#1f435f}#status{font-size:13px;margin-top:10px;color:#168052;min-height:16px}details{padding-top:7px}summary{cursor:pointer;font-size:13px;font-weight:700}footer{font-size:12px;color:#526a80;text-align:center;padding:5px 10px 30px}
+.full{position:fixed!important;inset:0;z-index:100!important;display:flex;flex-direction:column;border-radius:0;background:#fff}.full .stagewrap{flex:1;min-height:0;display:flex;flex-direction:column}.full .stage{height:auto;flex:1;min-height:0}
+#closeFull{display:none}.full #closeFull{display:inline-block}
+@media(max-width:850px){main{display:flex;flex-direction:column;padding:8px;gap:9px}.stage{height:54svh;min-height:305px}.sidebar{gap:9px}.brand img{width:45px;height:45px}.head h1{font-size:14px}}
+@media(max-width:360px){.zoomrow label{min-width:90px}.brand strong{font-size:16px}.btn.sm{padding:7px}}
+</style></head><body>
+<header><div class="brand"><img src="./logo.svg" alt="Logo ILIRI FOTO"><div><strong>ILIRI FOTO</strong><small>Bashko • Zmadho • Ruaj falas</small></div></div><button class="btn primary sm" id="addTop">+ Shto foto</button></header>
+<input hidden type="file" id="files" accept="image/*" multiple>
+<main>
+<section class="panel" id="editor">
+<div class="head"><h1>Fotografia e bashkuar</h1><div class="actions"><button class="btn sm" id="fullBtn">⛶ Ekran i madh</button><button class="btn sm" id="closeFull">✕ Mbyll</button></div></div>
+<div class="stagewrap"><div class="stage" id="stage"><canvas id="canvas"></canvas></div><div class="hint">Zgjidh një foto duke e prekur. Rrëshqite me gisht për të përshtatur pozicionin brenda kornizës.</div></div>
+<div class="zoomrow"><label for="viewZoom">Pamja në ekran</label><input type="range" id="viewZoom" min="50" max="500" step="10" value="100"><b id="viewVal">100%</b><button class="btn sm" id="fit">100%</button></div>
+<div class="head"><h2>Fotot e tua</h2><button class="btn sm" id="clear">Hiq të gjitha</button></div>
+<div class="strip" id="strip"></div>
+</section>
+<div class="sidebar">
+<section class="panel content"><h2>1. Bashko fotot</h2>
+<div class="field"><label>Vendosja e fotove</label><div class="layouts" id="layouts">
+<button data-layout="row"><strong>▥</strong>Horizontal</button><button data-layout="column"><strong>▤</strong>Vertikal</button><button class="on" data-layout="grid"><strong>▦</strong>Rrjetë</button>
+<button data-layout="left"><strong>◧</strong>E madhe majtas</button><button data-layout="top"><strong>⬒</strong>E madhe sipër</button><button data-layout="single"><strong>▣</strong>Një foto</button>
+</div></div>
+<div class="field"><label for="aspect">Formati i fotografisë</label><select id="aspect">
+<option value="1:1">Katror 1:1</option><option value="3:2">Horizontal 3:2</option><option value="4:3">Horizontal 4:3</option><option value="16:9">Horizontal 16:9</option><option value="2:3">Vertikal 2:3</option><option value="4:5">Vertikal 4:5</option><option value="9:16">Vertikal 9:16</option><option value="210:297">A4 vertikal</option><option value="297:210">A4 horizontal</option>
+</select></div>
+<div class="field"><label for="gap">Hapësira ndërmjet fotove</label><div class="range"><input id="gap" type="range" min="0" max="60" value="8"><output id="gapValue">8</output></div></div>
+<div class="field"><label for="bg">Ngjyra e sfondit / kornizës</label><input id="bg" type="color" value="#ffffff" style="width:100%;height:42px;border:1px solid #c9d9e6;border-radius:9px"></div>
+</section>
+<section class="panel content"><h2>2. Zmadho çdo foto</h2>
+<p class="info" id="photoInfo">Zgjidh një foto në ekran ose nga shiriti i fotove.</p>
+<div class="field"><label for="photoZoom">Zmadhimi i fotos së zgjedhur</label><div class="range"><input id="photoZoom" type="range" min="100" max="800" step="5" value="100" disabled><output id="photoZoomValue">100%</output></div></div>
+<div class="rowbuttons"><button class="btn sm opt" id="rotate" disabled>↶ Rrotullo</button><button class="btn sm opt" id="reset" disabled>Rivendos</button><button class="btn sm opt" id="prev" disabled>← Radha</button><button class="btn sm opt" id="next" disabled>Radha →</button><button class="btn sm opt" id="remove" disabled>Hiq foton</button></div>
+</section>
+<section class="panel content"><h2>3. Ruaj foton e madhe</h2>
+<div class="field"><label for="size">Rezolucioni – ana më e gjatë</label><select id="size"><option value="1600">1600 px – normale</option><option value="2048">2048 px – cilësi e mirë</option><option value="3072" selected>3072 px – cilësi e lartë</option><option value="4096">4096 px – shumë e madhe</option><option value="6000">6000 px – për printim</option><option value="8000">8000 px – maksimale*</option></select></div>
+<details><summary>Madhësi e personalizuar në piksel</summary><div class="row2" style="margin-top:9px"><div class="field"><label for="customW">Gjerësi</label><input type="number" min="100" max="10000" id="customW" placeholder="Automatike"></div><div class="field"><label for="customH">Lartësi</label><input type="number" min="100" max="10000" id="customH" placeholder="Automatike"></div></div><p class="info">Lëri bosh për madhësinë automatike. Nëse vendos vetëm njërën, ruhet proporcioni.</p></details>
+<p class="info" id="dimInfo"></p>
+<div class="row2"><button id="jpg" class="btn primary">Ruaj JPG</button><button id="png" class="btn dark">Ruaj PNG</button></div>
+<button id="share" class="btn" style="width:100%;margin-top:9px">↥ Ndaj / Ruaj në iPhone</button>
+<div role="status" id="status"></div><p class="info">Fotot përpunohen vetëm në pajisjen tënde; nuk dërgohen në internet. *Madhësia maksimale varet nga memoria e telefonit.</p>
+</section>
+</div></main><footer>ILIRI FOTO • Falas • Pa reklama • Pa regjistrim</footer>
+<script>
+(()=>{
+"use strict";const $=s=>document.getElementById(s), S={photos:[],sel:-1,layout:"grid",aspect:"1:1",gap:8,bg:"#ffffff",view:100,drag:null};
+const cv=$("canvas"),ctx=cv.getContext("2d",{alpha:false});let boxesNow=[];
+function msg(t,error){$("status").textContent=t;$("status").style.color=error?"#ba2b2b":"#167347"}
+function aspect(){let t=S.aspect.split(":").map(Number);return t[0]/t[1]}
+function dim(){let r=aspect(),long=Number($("size").value),w=r>=1?long:Math.round(long*r),h=r>=1?Math.round(long/r):long;
+let ww=Number($("customW").value),hh=Number($("customH").value);
+if(ww>0&&hh>0){w=ww;h=hh}else if(ww>0){w=ww;h=Math.round(w/r)}else if(hh>0){h=hh;w=Math.round(h*r)}
+return {w:Math.round(w),h:Math.round(h)}}
+function dimInfo(){let d=dim();$("dimInfo").textContent="Madhësia e rezultatit: "+d.w+" × "+d.h+" piksel"+(d.w*d.h>24000000?" • Shumë e madhe për shumicën e iPhone.":"")}
+function rects(n){
+ if(!n)return[];
+ if(S.layout==="single")return[{x:0,y:0,w:1,h:1,i:S.sel<0?0:S.sel}];
+ if(S.layout==="row")return Array.from({length:n},(_,i)=>({x:i/n,y:0,w:1/n,h:1,i}));
+ if(S.layout==="column")return Array.from({length:n},(_,i)=>({x:0,y:i/n,w:1,h:1/n,i}));
+ if(S.layout==="left"&&n>1){let a=[{x:0,y:0,w:.57,h:1,i:0}];for(let i=1;i<n;i++)a.push({x:.57,y:(i-1)/(n-1),w:.43,h:1/(n-1),i});return a}
+ if(S.layout==="top"&&n>1){let a=[{x:0,y:0,w:1,h:.6,i:0}];for(let i=1;i<n;i++)a.push({x:(i-1)/(n-1),y:.6,w:1/(n-1),h:.4,i});return a}
+ let cols=Math.max(1,Math.ceil(Math.sqrt(n*aspect()))),rows=Math.ceil(n/cols),a=[];
+ for(let i=0;i<n;i++){let row=Math.floor(i/cols),col=i%cols,count=Math.min(cols,n-row*cols);a.push({x:col/count,y:row/rows,w:1/count,h:1/rows,i})}return a;
+}
+function paint(c,w,h,outline){
+ c.fillStyle=S.bg;c.fillRect(0,0,w,h);
+ let b=rects(S.photos.length),gap=Math.min(w,h)*S.gap/1000;
+ if(!b.length){c.textAlign="center";c.textBaseline="middle";c.fillStyle="#73869b";c.font="bold "+Math.max(18,Math.floor(Math.min(w,h)/25))+"px sans-serif";c.fillText("SHTO FOTOT E TUA",w/2,h/2);return b}
+ for(let r of b){let p=S.photos[r.i];if(!p)continue;
+ let x=r.x*w+gap/2,y=r.y*h+gap/2,rw=Math.max(1,r.w*w-gap),rh=Math.max(1,r.h*h-gap);
+ c.save();c.beginPath();c.rect(x,y,rw,rh);c.clip();
+ let rotated=(p.rot%2)!==0,iw=rotated?p.img.height:p.img.width,ih=rotated?p.img.width:p.img.height;
+ let scale=Math.max(rw/iw,rh/ih)*p.zoom;
+ c.translate(x+rw/2+p.dx*rw,y+rh/2+p.dy*rh);c.rotate(p.rot*Math.PI/2);
+ c.drawImage(p.img,-p.img.width*scale/2,-p.img.height*scale/2,p.img.width*scale,p.img.height*scale);
+ c.restore();
+ if(outline&&r.i===S.sel){c.save();c.strokeStyle="#008ee8";c.lineWidth=Math.max(3,w/350);c.strokeRect(x+2,y+2,rw-4,rh-4);c.restore()}
+ }return b}
+function render(){
+ let r=aspect(),w=r>=1?1400:Math.round(1400*r),h=r>=1?Math.round(1400/r):1400;
+ cv.width=w;cv.height=h;boxesNow=paint(ctx,w,h,true);cv.style.width=S.view+"%";cv.style.height="auto";$("viewVal").textContent=S.view+"%"}
+function chosen(){return S.photos[S.sel]||null}
+function updateStrip(){
+ let st=$("strip");st.innerHTML="";
+ if(!S.photos.length){let el=document.createElement("div");el.className="emptyhint";el.textContent="Shto 2, 3, 4 ose më shumë foto.";st.append(el)}
+ S.photos.forEach((p,i)=>{let b=document.createElement("button");b.className="thumb"+(i===S.sel?" on":"");b.title="Foto "+(i+1);let im=document.createElement("img");im.src=p.url;im.alt=p.name;let z=document.createElement("span");z.textContent=i+1;b.append(im,z);b.onclick=()=>{S.sel=i;refresh()};st.append(b)});
+ let plus=document.createElement("button");plus.className="thumb add";plus.textContent="+";plus.title="Shto foto";plus.onclick=choose;st.append(plus)}
+function refresh(){
+ let p=chosen();document.querySelectorAll(".opt").forEach(x=>x.disabled=!p);$("photoZoom").disabled=!p;
+ $("photoInfo").textContent=p?"Foto "+(S.sel+1)+" nga "+S.photos.length+" – "+p.name:"Zgjidh një foto në ekran ose nga shiriti i fotove.";
+ $("photoZoom").value=p?Math.round(p.zoom*100):100;$("photoZoomValue").textContent=$("photoZoom").value+"%";
+ updateStrip();render();dimInfo()}
+function choose(){$("files").click()}
+async function add(files){
+ let f=Array.from(files).filter(x=>x.type.startsWith("image/"));let ok=0;
+ for(let file of f.slice(0,50)){let url=URL.createObjectURL(file);try{
+ let img=new Image();img.src=url;await new Promise((resolve,reject)=>{if(img.complete&&img.naturalWidth)return resolve();img.onload=resolve;img.onerror=reject});
+ S.photos.push({img,url,name:file.name,zoom:1,dx:0,dy:0,rot:0});ok++
+ }catch(e){URL.revokeObjectURL(url)}}
+ if(ok){S.sel=S.photos.length-1;refresh();msg(ok+" foto u shtuan.")}
+ else msg("Nuk u hap asnjë foto. Provo JPG ose PNG.",true);
+ $("files").value=""}
+$("files").onchange=e=>add(e.target.files);$("addTop").onclick=choose;
+$("clear").onclick=()=>{S.photos.forEach(x=>URL.revokeObjectURL(x.url));S.photos=[];S.sel=-1;refresh();msg("Fotot u pastruan.")};
+$("layouts").onclick=e=>{let b=e.target.closest("[data-layout]");if(!b)return;S.layout=b.dataset.layout;document.querySelectorAll("#layouts button").forEach(x=>x.classList.toggle("on",x===b));refresh()};
+$("aspect").onchange=e=>{S.aspect=e.target.value;refresh()};
+$("gap").oninput=e=>{S.gap=Number(e.target.value);$("gapValue").textContent=S.gap;render()};
+$("bg").oninput=e=>{S.bg=e.target.value;render()};
+$("viewZoom").oninput=e=>{S.view=Number(e.target.value);render()};
+$("fit").onclick=()=>{S.view=100;$("viewZoom").value=100;render()};
+$("photoZoom").oninput=e=>{let p=chosen();if(p){p.zoom=Number(e.target.value)/100;$("photoZoomValue").textContent=e.target.value+"%";render()}};
+$("rotate").onclick=()=>{let p=chosen();if(p){p.rot=(p.rot+3)%4;render()}};
+$("reset").onclick=()=>{let p=chosen();if(p){p.zoom=1;p.dx=0;p.dy=0;p.rot=0;refresh()}};
+$("remove").onclick=()=>{let p=chosen();if(p){URL.revokeObjectURL(p.url);S.photos.splice(S.sel,1);S.sel=Math.min(S.sel,S.photos.length-1);refresh()}};
+function move(n){let j=S.sel+n;if(j<0||j>=S.photos.length)return;let a=S.photos[S.sel];S.photos[S.sel]=S.photos[j];S.photos[j]=a;S.sel=j;refresh()}
+$("prev").onclick=()=>move(-1);$("next").onclick=()=>move(1);
+["size","customW","customH"].forEach(id=>$(id).addEventListener("input",dimInfo));
+function hit(e){let b=cv.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;return boxesNow.find(a=>x>=a.x&&x<=a.x+a.w&&y>=a.y&&y<=a.y+a.h)}
+cv.addEventListener("pointerdown",e=>{let b=hit(e);if(!b||!S.photos.length)return;S.sel=b.i;refresh();S.drag={id:e.pointerId,x:e.clientX,y:e.clientY,box:b};cv.setPointerCapture(e.pointerId);e.preventDefault()});
+cv.addEventListener("pointermove",e=>{let d=S.drag,p=chosen();if(!d||!p||d.id!==e.pointerId)return;let b=cv.getBoundingClientRect();p.dx+=(e.clientX-d.x)/b.width/d.box.w;p.dy+=(e.clientY-d.y)/b.height/d.box.h;d.x=e.clientX;d.y=e.clientY;render();e.preventDefault()});
+function end(e){if(S.drag&&S.drag.id===e.pointerId)S.drag=null}
+cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
+$("fullBtn").onclick=()=>$("editor").classList.add("full");$("closeFull").onclick=()=>$("editor").classList.remove("full");
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("editor").classList.remove("full")});
+async function blob(type){if(!S.photos.length)throw Error("Shto fotot fillimisht.");
+ let d=dim();if(d.w<100||d.h<100||d.w>10000||d.h>10000||d.w*d.h>24000000)throw Error("Zgjidh një madhësi deri në 24 megapiksel për të mos bllokuar telefonin.");
+ let c=document.createElement("canvas");c.width=d.w;c.height=d.h;let t=c.getContext("2d",{alpha:false});if(!t)throw Error("Mungon memoria për këtë madhësi.");
+ paint(t,d.w,d.h,false);
+ return await new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(Error("Ruajtja dështoi. Provo madhësi më të vogël.")),type,.94))}
+function filename(type){return "ILIRI-FOTO-"+new Date().toISOString().slice(0,10)+(type==="image/png"?".png":".jpg")}
+function download(b,n){let u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=n;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),12000)}
+async function save(type,share){let el=$(share?"share":type==="image/png"?"png":"jpg"),old=el.textContent;el.disabled=true;el.textContent="Duke përgatitur…";
+ try{let b=await blob(type),name=filename(type);
+ if(share&&navigator.share){let f=new File([b],name,{type});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"ILIRI FOTO"});msg("Përdor 'Save Image' / 'Ruaj figurën' për ta shtuar te Photos.");return}}
+ download(b,name);msg("Fotoja u përgatit. Në iPhone kontrollo Files / Downloads.");
+ }catch(e){if(e.name!=="AbortError")msg(e.message||"Ruajtja dështoi.",true)}
+ finally{el.disabled=false;el.textContent=old}}
+$("jpg").onclick=()=>save("image/jpeg",false);$("png").onclick=()=>save("image/png",false);$("share").onclick=()=>save("image/jpeg",true);
+refresh();
+})();
+</script></body></html>
