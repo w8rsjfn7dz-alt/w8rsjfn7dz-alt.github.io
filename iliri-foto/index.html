@@ -137,7 +137,7 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
 </section>
 <section class="panel content"><h2>Zmadho e lëviz foton e zgjedhur</h2>
 <p class="info" id="photoInfo">Zgjidh një foto në ekran ose nga shiriti i fotove.</p>
-<div class="field"><label for="photoZoom">Zmadhimi i fotos së zgjedhur</label><div class="range"><input id="photoZoom" type="range" min="100" max="1000" step="5" value="100" disabled><output id="photoZoomValue">100%</output></div></div>
+<div class="field"><label for="photoZoom">Zmadhimi i fotos së zgjedhur</label><div class="range"><input id="photoZoom" type="range" min="10" max="1000" step="5" value="100" disabled><output id="photoZoomValue">100%</output></div></div>
 <div class="rowbuttons"><button class="btn sm opt" id="rotate" disabled>↶ Rrotullo</button><button class="btn sm opt" id="reset" disabled>Rivendos</button><button class="btn sm opt" id="prev" disabled>← Radha</button><button class="btn sm opt" id="next" disabled>Radha →</button><button class="btn sm opt" id="remove" disabled>Hiq foton</button></div>
 </section>
 <section class="panel content" id="savepanel"><h2>Ruaj fotografinë</h2>
@@ -271,7 +271,7 @@ cv.addEventListener("pointermove",e=>{
  if(pinch&&fingers.has(pinch.ids[0])&&fingers.has(pinch.ids[1])){
   const a=fingers.get(pinch.ids[0]),z=fingers.get(pinch.ids[1]),p=S.photos[pinch.index];
   if(p){
-   p.zoom=Math.max(1,Math.min(10,pinch.zoom*fingerGap(a,z)/pinch.distance));
+   p.zoom=Math.max(.1,Math.min(10,pinch.zoom*fingerGap(a,z)/pinch.distance));
    const percent=Math.round(p.zoom*100);
    $("photoZoom").value=percent;
    $("photoZoomValue").textContent=percent+"%";
