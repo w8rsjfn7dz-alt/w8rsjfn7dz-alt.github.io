@@ -29,35 +29,118 @@ input[type=range]{accent-color:#1684c5;flex:1;min-width:40px}.range{display:flex
 #closeFull{display:none}.full #closeFull{display:inline-block}
 @media(max-width:850px){main{display:flex;flex-direction:column;padding:8px;gap:9px}.stage{height:54svh;min-height:305px}.sidebar{gap:9px}.brand img{width:45px;height:45px}.head h1{font-size:14px}}
 @media(max-width:360px){.zoomrow label{min-width:90px}.brand strong{font-size:16px}.btn.sm{padding:7px}}
+
+/* ILIRI FOTO — kompakte për celular, versioni 3 */
+html{scroll-behavior:smooth}
+header{position:relative;padding:8px 12px}
+main{grid-template-columns:minmax(0,1fr) 340px;gap:10px}
+.panel{border-radius:17px}
+.head{padding:11px 12px}
+.quickbar{padding:10px 11px;display:grid;grid-template-columns:1.45fr 1fr;gap:9px;background:#fff}
+.quickbar .btn{min-height:47px;font-size:15px;border-radius:12px}
+.fastcontrols{padding:9px 10px 13px;border-block:1px solid #e3ecf3;background:#fff}
+.fast-title{margin:10px 0 7px;display:flex;align-items:center;justify-content:space-between;gap:7px}
+.fast-title strong{font-size:13px;color:#173952}
+.fast-title span{font-size:10px;color:#6a8296;white-space:nowrap}
+.scrollx{overflow-x:auto;scrollbar-width:thin;padding-bottom:3px}
+.layouts{grid-template-columns:repeat(6,minmax(93px,1fr));width:max-content;gap:7px}
+.layouts button{width:93px;min-height:66px;border-radius:12px;padding:5px;font-size:11px;white-space:normal;line-height:1.3}
+.layouts button strong{font-size:25px;line-height:1.2;margin-bottom:4px}
+.shapes{display:flex;gap:7px;width:max-content}
+.shapes button{width:88px;min-height:67px;border-radius:12px;padding:7px 3px;border:1px solid #cfdfeb;background:#f6f9fc;color:#314d65;font-size:10.5px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px}
+.shapes button.on,.ratios button.on,.layouts button.on{border-color:#087dc4;background:#dfedfc;color:#08568c;box-shadow:0 0 0 1px #1384c557}
+.shape-icon{width:28px;height:24px;display:block;background:#368cca;border:2px solid #1b73ae}
+.shape-icon.square{border-radius:2px}.shape-icon.rounded{border-radius:9px}.shape-icon.circle{width:26px;height:26px;border-radius:50%}
+.shape-icon.oval{width:32px;height:22px;border-radius:50%}.shape-icon.diamond{width:20px;height:20px;transform:rotate(45deg);margin:3px}
+.shape-icon.heart{font-size:32px;line-height:24px;background:none;border:0;color:#358aca}
+.shape-icon.hex{clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+.ratios{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.ratios button{height:37px;padding:0 2px;border:1px solid #cfdfeb;background:#f6f9fc;color:#3a566b;border-radius:9px;font-size:12px;font-weight:700}
+.stagewrap{padding:8px 10px;background:#f1f5f9}
+.stage{height:360px;min-height:250px;border:1px solid #dae4ee;display:flex;justify-content:safe center;align-items:safe center;overflow:auto;background:repeating-conic-gradient(#e6edf3 0 25%,#f9fbfd 0 50%) 50%/19px 19px}
+canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
+.empty-add{border:2px dashed #9abbd3;border-radius:14px;background:#fffffff2;color:#155d91;min-width:min(80%,230px);padding:25px 18px;display:flex;flex-direction:column;align-items:center;gap:7px}
+.empty-add span{font-size:38px;line-height:1}.empty-add strong{font-size:16px}.empty-add small{font-size:11px;color:#608098}
+.strip{min-height:77px;padding:8px}.thumb{width:62px;height:63px;min-width:62px}.thumb.add{font-size:25px}
+.zoomrow{padding:8px 11px}.zoomrow label{min-width:94px}.zoomrow b{min-width:40px}
+.sidebar{gap:10px}
+#savepanel{scroll-margin-top:12px}
+#photoCount{font-weight:500;color:#6a8195;font-size:12px}
+@media(max-width:850px){
+ main{display:flex;flex-direction:column;padding:7px;gap:9px}
+ header{position:relative;min-height:56px}
+ .brand img{width:44px;height:44px}
+ .brand strong{font-size:17px}
+ .brand small{font-size:10px}
+ .stage{height:clamp(250px,37svh,355px);min-height:250px}
+ .sidebar{gap:9px}
+ .head h1{font-size:15px}
+ .zoomrow{gap:6px}
+ .zoomrow label{font-size:11px}
+ .zoomrow .btn{padding:7px}
+ .fast-title{margin-top:7px}
+}
+@media(max-width:370px){.quickbar .btn{font-size:13px}.zoomrow label{min-width:75px}.brand small{font-size:9px}.head h1{font-size:14px}}
+.full .stagewrap{flex:1;min-height:0;display:flex;flex-direction:column}
+.full .stage{height:auto;flex:1;min-height:0}
+.full .fastcontrols,.full .quickbar,.full .strip,.full>.head:nth-last-child(2){display:none}
+
 </style></head><body>
 <header><div class="brand"><img src="./logo.jpg" alt="Logo ILIRI FOTO"><div><strong>ILIRI FOTO</strong><small>Bashko • Zmadho • Ruaj falas</small></div></div><button class="btn primary sm" id="addTop">+ Shto foto</button></header>
 <input hidden type="file" id="files" accept="image/*" multiple>
 <main>
 <section class="panel" id="editor">
 <div class="head"><h1>Fotografia e bashkuar</h1><div class="actions"><button class="btn sm" id="fullBtn">⛶ Ekran i madh</button><button class="btn sm" id="closeFull">✕ Mbyll</button></div></div>
-<div class="stagewrap"><div class="stage" id="stage"><canvas id="canvas"></canvas></div><div class="hint">Zgjidh një foto duke e prekur. Rrëshqite me gisht për të përshtatur pozicionin brenda kornizës.</div></div>
-<div class="zoomrow"><label for="viewZoom">Pamja në ekran</label><input type="range" id="viewZoom" min="50" max="500" step="10" value="100"><b id="viewVal">100%</b><button class="btn sm" id="fit">100%</button></div>
-<div class="head"><h2>Fotot e tua</h2><button class="btn sm" id="clear">Hiq të gjitha</button></div>
-<div class="strip" id="strip"></div>
-</section>
-<div class="sidebar">
-<section class="panel content"><h2>1. Bashko fotot</h2>
-<div class="field"><label>Vendosja e fotove</label><div class="layouts" id="layouts">
+
+<div class="quickbar">
+ <button type="button" class="btn primary quick-add" id="addMain">＋ Shto foto</button>
+ <button type="button" class="btn quick-save" id="quickSave">↓ Ruaj foton</button>
+</div>
+<div class="fastcontrols">
+ <div class="fast-title"><strong>1. Zgjidh kolazhin</strong><span>Rrëshqit për forma të tjera →</span></div>
+ <div class="scrollx"><div class="layouts" id="layouts">
 <button data-layout="row"><strong>▥</strong>Horizontal</button><button data-layout="column"><strong>▤</strong>Vertikal</button><button class="on" data-layout="grid"><strong>▦</strong>Rrjetë</button>
 <button data-layout="left"><strong>◧</strong>E madhe majtas</button><button data-layout="top"><strong>⬒</strong>E madhe sipër</button><button data-layout="single"><strong>▣</strong>Një foto</button>
 </div></div>
+ <div class="fast-title"><strong>2. Forma e fotove</strong></div>
+ <div class="scrollx"><div class="shapes" id="shapes">
+ <button type="button" data-shape="rect" class="on"><span class="shape-icon square"></span>Katror</button>
+ <button type="button" data-shape="round"><span class="shape-icon rounded"></span>Kënde të rrumb.</button>
+ <button type="button" data-shape="circle"><span class="shape-icon circle"></span>Rreth</button>
+ <button type="button" data-shape="oval"><span class="shape-icon oval"></span>Oval</button>
+ <button type="button" data-shape="heart"><span class="shape-icon heart">♥</span>Zemër</button>
+ <button type="button" data-shape="diamond"><span class="shape-icon diamond"></span>Romb</button>
+ <button type="button" data-shape="hex"><span class="shape-icon hex"></span>Gjashtëkëndësh</button>
+ </div></div>
+ <div class="fast-title"><strong>3. Formati</strong></div>
+ <div class="ratios" id="ratios">
+ <button type="button" data-aspect="1:1" class="on">1:1</button>
+ <button type="button" data-aspect="4:3">4:3</button>
+ <button type="button" data-aspect="16:9">16:9</button>
+ <button type="button" data-aspect="4:5">4:5</button>
+ <button type="button" data-aspect="9:16">9:16</button>
+ </div>
+</div>
+<div class="stagewrap"><div class="stage" id="stage"><canvas id="canvas"></canvas><button type="button" id="emptyAdd" class="empty-add"><span>＋</span><strong>Shto fotot e tua</strong><small>Zgjidh 2, 3, 4 ose më shumë foto</small></button></div><div class="hint">Prek foton për ta zgjedhur; lëvize me gisht. Zmadhimi është më poshtë.</div></div>
+<div class="zoomrow"><label for="viewZoom">Pamja në ekran</label><input type="range" id="viewZoom" min="50" max="400" step="10" value="100"><b id="viewVal">100%</b><button class="btn sm" id="fit">100%</button></div>
+<div class="head"><h2>Fotot e tua <small id="photoCount">(0)</small></h2><button class="btn sm" id="clear">Hiq të gjitha</button></div>
+<div class="strip" id="strip"></div>
+</section>
+<div class="sidebar">
+<section class="panel content"><h2>Rregullime të tjera</h2>
+
 <div class="field"><label for="aspect">Formati i fotografisë</label><select id="aspect">
 <option value="1:1">Katror 1:1</option><option value="3:2">Horizontal 3:2</option><option value="4:3">Horizontal 4:3</option><option value="16:9">Horizontal 16:9</option><option value="2:3">Vertikal 2:3</option><option value="4:5">Vertikal 4:5</option><option value="9:16">Vertikal 9:16</option><option value="210:297">A4 vertikal</option><option value="297:210">A4 horizontal</option>
 </select></div>
 <div class="field"><label for="gap">Hapësira ndërmjet fotove</label><div class="range"><input id="gap" type="range" min="0" max="60" value="8"><output id="gapValue">8</output></div></div>
 <div class="field"><label for="bg">Ngjyra e sfondit / kornizës</label><input id="bg" type="color" value="#ffffff" style="width:100%;height:42px;border:1px solid #c9d9e6;border-radius:9px"></div>
 </section>
-<section class="panel content"><h2>2. Zmadho çdo foto</h2>
+<section class="panel content"><h2>Zmadho e lëviz foton e zgjedhur</h2>
 <p class="info" id="photoInfo">Zgjidh një foto në ekran ose nga shiriti i fotove.</p>
-<div class="field"><label for="photoZoom">Zmadhimi i fotos së zgjedhur</label><div class="range"><input id="photoZoom" type="range" min="100" max="800" step="5" value="100" disabled><output id="photoZoomValue">100%</output></div></div>
+<div class="field"><label for="photoZoom">Zmadhimi i fotos së zgjedhur</label><div class="range"><input id="photoZoom" type="range" min="100" max="1000" step="5" value="100" disabled><output id="photoZoomValue">100%</output></div></div>
 <div class="rowbuttons"><button class="btn sm opt" id="rotate" disabled>↶ Rrotullo</button><button class="btn sm opt" id="reset" disabled>Rivendos</button><button class="btn sm opt" id="prev" disabled>← Radha</button><button class="btn sm opt" id="next" disabled>Radha →</button><button class="btn sm opt" id="remove" disabled>Hiq foton</button></div>
 </section>
-<section class="panel content"><h2>3. Ruaj foton e madhe</h2>
+<section class="panel content" id="savepanel"><h2>Ruaj fotografinë</h2>
 <div class="field"><label for="size">Rezolucioni – ana më e gjatë</label><select id="size"><option value="1600">1600 px – normale</option><option value="2048">2048 px – cilësi e mirë</option><option value="3072" selected>3072 px – cilësi e lartë</option><option value="4096">4096 px – shumë e madhe</option><option value="6000">6000 px – për printim</option><option value="8000">8000 px – maksimale*</option></select></div>
 <details><summary>Madhësi e personalizuar në piksel</summary><div class="row2" style="margin-top:9px"><div class="field"><label for="customW">Gjerësi</label><input type="number" min="100" max="10000" id="customW" placeholder="Automatike"></div><div class="field"><label for="customH">Lartësi</label><input type="number" min="100" max="10000" id="customH" placeholder="Automatike"></div></div><p class="info">Lëri bosh për madhësinë automatike. Nëse vendos vetëm njërën, ruhet proporcioni.</p></details>
 <p class="info" id="dimInfo"></p>
@@ -68,7 +151,7 @@ input[type=range]{accent-color:#1684c5;flex:1;min-width:40px}.range{display:flex
 </div></main><footer>ILIRI FOTO • Falas • Pa reklama • Pa regjistrim</footer>
 <script>
 (()=>{
-"use strict";const $=s=>document.getElementById(s), S={photos:[],sel:-1,layout:"grid",aspect:"1:1",gap:8,bg:"#ffffff",view:100,drag:null};
+"use strict";const $=s=>document.getElementById(s), S={photos:[],sel:-1,layout:"grid",shape:"rect",aspect:"1:1",gap:8,bg:"#ffffff",view:100,drag:null};
 const cv=$("canvas"),ctx=cv.getContext("2d",{alpha:false});let boxesNow=[];
 function msg(t,error){$("status").textContent=t;$("status").style.color=error?"#ba2b2b":"#167347"}
 function aspect(){let t=S.aspect.split(":").map(Number);return t[0]/t[1]}
@@ -87,23 +170,38 @@ function rects(n){
  let cols=Math.max(1,Math.ceil(Math.sqrt(n*aspect()))),rows=Math.ceil(n/cols),a=[];
  for(let i=0;i<n;i++){let row=Math.floor(i/cols),col=i%cols,count=Math.min(cols,n-row*cols);a.push({x:col/count,y:row/rows,w:1/count,h:1/rows,i})}return a;
 }
+
+function shapePath(c,x,y,w,h,shape){
+ const cx=x+w/2,cy=y+h/2,m=Math.min(w,h);
+ c.beginPath();
+ if(shape==="circle"){c.arc(cx,cy,m/2,0,Math.PI*2);c.closePath();return}
+ if(shape==="oval"){c.ellipse(cx,cy,w/2,h/2,0,0,Math.PI*2);c.closePath();return}
+ if(shape==="round"){let r=Math.min(m*.2,Math.max(6,m*.2));c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();return}
+ if(shape==="diamond"){c.moveTo(cx,y);c.lineTo(x+w,cy);c.lineTo(cx,y+h);c.lineTo(x,cy);c.closePath();return}
+ if(shape==="hex"){c.moveTo(x+w*.25,y);c.lineTo(x+w*.75,y);c.lineTo(x+w,cy);c.lineTo(x+w*.75,y+h);c.lineTo(x+w*.25,y+h);c.lineTo(x,cy);c.closePath();return}
+ if(shape==="heart"){c.moveTo(cx,y+h*.95);c.bezierCurveTo(x+w*.03,y+h*.69,x-w*.04,y+h*.32,x+w*.19,y+h*.16);c.bezierCurveTo(x+w*.34,y-h*.04,cx,y+h*.13,cx,y+h*.26);c.bezierCurveTo(cx,y+h*.13,x+w*.68,y-h*.04,x+w*.81,y+h*.16);c.bezierCurveTo(x+w*1.04,y+h*.32,x+w*.97,y+h*.69,cx,y+h*.95);c.closePath();return}
+ c.rect(x,y,w,h);
+}
 function paint(c,w,h,outline){
  c.fillStyle=S.bg;c.fillRect(0,0,w,h);
  let b=rects(S.photos.length),gap=Math.min(w,h)*S.gap/1000;
  if(!b.length){c.textAlign="center";c.textBaseline="middle";c.fillStyle="#73869b";c.font="bold "+Math.max(18,Math.floor(Math.min(w,h)/25))+"px sans-serif";c.fillText("SHTO FOTOT E TUA",w/2,h/2);return b}
  for(let r of b){let p=S.photos[r.i];if(!p)continue;
  let x=r.x*w+gap/2,y=r.y*h+gap/2,rw=Math.max(1,r.w*w-gap),rh=Math.max(1,r.h*h-gap);
- c.save();c.beginPath();c.rect(x,y,rw,rh);c.clip();
+ c.save();shapePath(c,x,y,rw,rh,S.shape);c.clip();
  let rotated=(p.rot%2)!==0,iw=rotated?p.img.height:p.img.width,ih=rotated?p.img.width:p.img.height;
  let scale=Math.max(rw/iw,rh/ih)*p.zoom;
  c.translate(x+rw/2+p.dx*rw,y+rh/2+p.dy*rh);c.rotate(p.rot*Math.PI/2);
  c.drawImage(p.img,-p.img.width*scale/2,-p.img.height*scale/2,p.img.width*scale,p.img.height*scale);
  c.restore();
- if(outline&&r.i===S.sel){c.save();c.strokeStyle="#008ee8";c.lineWidth=Math.max(3,w/350);c.strokeRect(x+2,y+2,rw-4,rh-4);c.restore()}
+ if(outline&&r.i===S.sel){c.save();c.strokeStyle="#008ee8";c.lineWidth=Math.max(3,w/350);shapePath(c,x+2,y+2,rw-4,rh-4,S.shape);c.stroke();c.restore()}
  }return b}
 function render(){
  let r=aspect(),w=r>=1?1400:Math.round(1400*r),h=r>=1?Math.round(1400/r):1400;
- cv.width=w;cv.height=h;boxesNow=paint(ctx,w,h,true);cv.style.width=S.view+"%";cv.style.height="auto";$("viewVal").textContent=S.view+"%"}
+ cv.width=w;cv.height=h;boxesNow=paint(ctx,w,h,true);const st=$("stage"),padding=22,fitW=Math.max(80,Math.min(st.clientWidth-padding,(st.clientHeight-padding)*(w/h)));
+ cv.style.display=S.photos.length?"block":"none";
+ $("emptyAdd").style.display=S.photos.length?"none":"flex";
+ cv.style.width=(fitW*S.view/100)+"px";cv.style.height="auto";$("viewVal").textContent=S.view+"%"}
 function chosen(){return S.photos[S.sel]||null}
 function updateStrip(){
  let st=$("strip");st.innerHTML="";
@@ -111,6 +209,7 @@ function updateStrip(){
  S.photos.forEach((p,i)=>{let b=document.createElement("button");b.className="thumb"+(i===S.sel?" on":"");b.title="Foto "+(i+1);let im=document.createElement("img");im.src=p.url;im.alt=p.name;let z=document.createElement("span");z.textContent=i+1;b.append(im,z);b.onclick=()=>{S.sel=i;refresh()};st.append(b)});
  let plus=document.createElement("button");plus.className="thumb add";plus.textContent="+";plus.title="Shto foto";plus.onclick=choose;st.append(plus)}
 function refresh(){
+ $("photoCount").textContent="("+S.photos.length+")";
  let p=chosen();document.querySelectorAll(".opt").forEach(x=>x.disabled=!p);$("photoZoom").disabled=!p;
  $("photoInfo").textContent=p?"Foto "+(S.sel+1)+" nga "+S.photos.length+" – "+p.name:"Zgjidh një foto në ekran ose nga shiriti i fotove.";
  $("photoZoom").value=p?Math.round(p.zoom*100):100;$("photoZoomValue").textContent=$("photoZoom").value+"%";
@@ -125,10 +224,15 @@ async function add(files){
  if(ok){S.sel=S.photos.length-1;refresh();msg(ok+" foto u shtuan.")}
  else msg("Nuk u hap asnjë foto. Provo JPG ose PNG.",true);
  $("files").value=""}
-$("files").onchange=e=>add(e.target.files);$("addTop").onclick=choose;
+$("files").onchange=e=>add(e.target.files);
+ ["addTop","addMain","emptyAdd"].forEach(id=>$(id).onclick=choose);
+ $("quickSave").onclick=()=>{ $("savepanel").scrollIntoView({behavior:"smooth",block:"start"}); };
+ $("shapes").onclick=e=>{let b=e.target.closest("[data-shape]");if(!b)return;S.shape=b.dataset.shape;document.querySelectorAll("#shapes button").forEach(x=>x.classList.toggle("on",x===b));render()};
+ $("ratios").onclick=e=>{let b=e.target.closest("[data-aspect]");if(!b)return;S.aspect=b.dataset.aspect;$("aspect").value=S.aspect;syncRatios();render();dimInfo()};
+ function syncRatios(){document.querySelectorAll("#ratios button").forEach(x=>x.classList.toggle("on",x.dataset.aspect===S.aspect))}
 $("clear").onclick=()=>{S.photos.forEach(x=>URL.revokeObjectURL(x.url));S.photos=[];S.sel=-1;refresh();msg("Fotot u pastruan.")};
 $("layouts").onclick=e=>{let b=e.target.closest("[data-layout]");if(!b)return;S.layout=b.dataset.layout;document.querySelectorAll("#layouts button").forEach(x=>x.classList.toggle("on",x===b));refresh()};
-$("aspect").onchange=e=>{S.aspect=e.target.value;refresh()};
+$("aspect").onchange=e=>{S.aspect=e.target.value;syncRatios();refresh()};
 $("gap").oninput=e=>{S.gap=Number(e.target.value);$("gapValue").textContent=S.gap;render()};
 $("bg").oninput=e=>{S.bg=e.target.value;render()};
 $("viewZoom").oninput=e=>{S.view=Number(e.target.value);render()};
@@ -145,7 +249,7 @@ cv.addEventListener("pointerdown",e=>{let b=hit(e);if(!b||!S.photos.length)retur
 cv.addEventListener("pointermove",e=>{let d=S.drag,p=chosen();if(!d||!p||d.id!==e.pointerId)return;let b=cv.getBoundingClientRect();p.dx+=(e.clientX-d.x)/b.width/d.box.w;p.dy+=(e.clientY-d.y)/b.height/d.box.h;d.x=e.clientX;d.y=e.clientY;render();e.preventDefault()});
 function end(e){if(S.drag&&S.drag.id===e.pointerId)S.drag=null}
 cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
-$("fullBtn").onclick=()=>$("editor").classList.add("full");$("closeFull").onclick=()=>$("editor").classList.remove("full");
+$("fullBtn").onclick=()=>{$("editor").classList.add("full");requestAnimationFrame(render)};$("closeFull").onclick=()=>{$("editor").classList.remove("full");requestAnimationFrame(render)};
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("editor").classList.remove("full")});
 async function blob(type){if(!S.photos.length)throw Error("Shto fotot fillimisht.");
  let d=dim();if(d.w<100||d.h<100||d.w>10000||d.h>10000||d.w*d.h>24000000)throw Error("Zgjidh një madhësi deri në 24 megapiksel për të mos bllokuar telefonin.");
@@ -161,6 +265,6 @@ async function save(type,share){let el=$(share?"share":type==="image/png"?"png":
  }catch(e){if(e.name!=="AbortError")msg(e.message||"Ruajtja dështoi.",true)}
  finally{el.disabled=false;el.textContent=old}}
 $("jpg").onclick=()=>save("image/jpeg",false);$("png").onclick=()=>save("image/png",false);$("share").onclick=()=>save("image/jpeg",true);
-refresh();
+window.addEventListener("resize",render);refresh();
 })();
 </script></body></html>
