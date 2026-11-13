@@ -81,6 +81,17 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
  .fast-title{margin-top:7px}
 }
 @media(max-width:370px){.quickbar .btn{font-size:13px}.zoomrow label{min-width:75px}.brand small{font-size:9px}.head h1{font-size:14px}}
+/* Hapësira e kolazhit zë gjithë ekranin e telefonit; formatet e tjera ruhen. */
+@media(max-width:850px){
+ #editor{margin-inline:-7px;border-radius:0}
+ #editor .stagewrap{padding:3px}
+ #editor .stage{height:100svh;min-height:0;border-radius:0}
+ #editor .ratios{display:flex;overflow-x:auto;gap:6px}
+ #editor .ratios button{flex:1 0 58px;min-width:58px}
+ #editor .ratios button[data-aspect="screen"]{flex-basis:78px}
+ #editor.full{margin:0}
+ #editor.full .stage{height:auto;flex:1;min-height:0}
+}
 .full .stagewrap{flex:1;min-height:0;display:flex;flex-direction:column}
 .full .stage{height:auto;flex:1;min-height:0}
 .full .fastcontrols,.full .quickbar,.full .strip,.full>.head:nth-last-child(2){display:none}
@@ -114,7 +125,7 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
  </div></div>
  <div class="fast-title"><strong>3. Formati</strong></div>
  <div class="ratios" id="ratios">
- <button type="button" data-aspect="1:1" class="on">1:1</button>
+ <button type="button" data-aspect="screen" class="on">Ekrani</button><button type="button" data-aspect="1:1">1:1</button>
  <button type="button" data-aspect="4:3">4:3</button>
  <button type="button" data-aspect="16:9">16:9</button>
  <button type="button" data-aspect="4:5">4:5</button>
@@ -130,7 +141,7 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
 <section class="panel content"><h2>Rregullime të tjera</h2>
 
 <div class="field"><label for="aspect">Formati i fotografisë</label><select id="aspect">
-<option value="1:1">Katror 1:1</option><option value="3:2">Horizontal 3:2</option><option value="4:3">Horizontal 4:3</option><option value="16:9">Horizontal 16:9</option><option value="2:3">Vertikal 2:3</option><option value="4:5">Vertikal 4:5</option><option value="9:16">Vertikal 9:16</option><option value="210:297">A4 vertikal</option><option value="297:210">A4 horizontal</option>
+<option value="screen" selected>Sa ekrani (automatik)</option><option value="1:1">Katror 1:1</option><option value="3:2">Horizontal 3:2</option><option value="4:3">Horizontal 4:3</option><option value="16:9">Horizontal 16:9</option><option value="2:3">Vertikal 2:3</option><option value="4:5">Vertikal 4:5</option><option value="9:16">Vertikal 9:16</option><option value="210:297">A4 vertikal</option><option value="297:210">A4 horizontal</option>
 </select></div>
 <div class="field"><label for="gap">Hapësira ndërmjet fotove</label><div class="range"><input id="gap" type="range" min="0" max="60" value="8"><output id="gapValue">8</output></div></div>
 <div class="field"><label for="bg">Ngjyra e sfondit / kornizës</label><input id="bg" type="color" value="#ffffff" style="width:100%;height:42px;border:1px solid #c9d9e6;border-radius:9px"></div>
@@ -151,10 +162,10 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
 </div></main><footer>ILIRI FOTO • Falas • Pa reklama • Pa regjistrim</footer>
 <script>
 (()=>{
-"use strict";const $=s=>document.getElementById(s), S={photos:[],sel:-1,layout:"grid",shape:"rect",aspect:"1:1",gap:8,bg:"#ffffff",view:100,drag:null};
+"use strict";const $=s=>document.getElementById(s), S={photos:[],sel:-1,layout:"grid",shape:"rect",aspect:"screen",gap:8,bg:"#ffffff",view:100,drag:null};
 const cv=$("canvas"),ctx=cv.getContext("2d",{alpha:false});let boxesNow=[];
 function msg(t,error){$("status").textContent=t;$("status").style.color=error?"#ba2b2b":"#167347"}
-function aspect(){let t=S.aspect.split(":").map(Number);return t[0]/t[1]}
+function aspect(){if(S.aspect==="screen")return window.innerWidth/Math.max(1,window.innerHeight);let t=S.aspect.split(":").map(Number);return t[0]/t[1]}
 function dim(){let r=aspect(),long=Number($("size").value),w=r>=1?long:Math.round(long*r),h=r>=1?Math.round(long/r):long;
 let ww=Number($("customW").value),hh=Number($("customH").value);
 if(ww>0&&hh>0){w=ww;h=hh}else if(ww>0){w=ww;h=Math.round(w/r)}else if(hh>0){h=hh;w=Math.round(h*r)}
@@ -198,7 +209,7 @@ function paint(c,w,h,outline){
  }return b}
 function render(){
  let r=aspect(),w=r>=1?1400:Math.round(1400*r),h=r>=1?Math.round(1400/r):1400;
- cv.width=w;cv.height=h;boxesNow=paint(ctx,w,h,true);const st=$("stage"),padding=22,fitW=Math.max(80,Math.min(st.clientWidth-padding,(st.clientHeight-padding)*(w/h)));
+ cv.width=w;cv.height=h;boxesNow=paint(ctx,w,h,true);const st=$("stage"),padding=window.innerWidth<=850?6:22,fitW=Math.max(80,Math.min(st.clientWidth-padding,(st.clientHeight-padding)*(w/h)));
  cv.style.display=S.photos.length?"block":"none";
  $("emptyAdd").style.display=S.photos.length?"none":"flex";
  cv.style.width=(fitW*S.view/100)+"px";cv.style.height="auto";$("viewVal").textContent=S.view+"%"}
