@@ -121,7 +121,7 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
  <button type="button" data-aspect="9:16">9:16</button>
  </div>
 </div>
-<div class="stagewrap"><div class="stage" id="stage"><canvas id="canvas"></canvas><button type="button" id="emptyAdd" class="empty-add"><span>＋</span><strong>Shto fotot e tua</strong><small>Zgjidh 2, 3, 4 ose më shumë foto</small></button></div><div class="hint">Prek foton për ta zgjedhur; lëvize me gisht. Zmadhimi është më poshtë.</div></div>
+<div class="stagewrap"><div class="stage" id="stage"><canvas id="canvas"></canvas><button type="button" id="emptyAdd" class="empty-add"><span>＋</span><strong>Shto fotot e tua</strong><small>Zgjidh 2, 3, 4 ose më shumë foto</small></button></div><div class="hint">Prek për ta zgjedhur, lëvize me një gisht; zmadho ose zvogëlo me dy gishta.</div></div>
 <div class="zoomrow"><label for="viewZoom">Pamja në ekran</label><input type="range" id="viewZoom" min="50" max="400" step="10" value="100"><b id="viewVal">100%</b><button class="btn sm" id="fit">100%</button></div>
 <div class="head"><h2>Fotot e tua <small id="photoCount">(0)</small></h2><button class="btn sm" id="clear">Hiq të gjitha</button></div>
 <div class="strip" id="strip"></div>
@@ -245,10 +245,55 @@ function move(n){let j=S.sel+n;if(j<0||j>=S.photos.length)return;let a=S.photos[
 $("prev").onclick=()=>move(-1);$("next").onclick=()=>move(1);
 ["size","customW","customH"].forEach(id=>$(id).addEventListener("input",dimInfo));
 function hit(e){let b=cv.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;return boxesNow.find(a=>x>=a.x&&x<=a.x+a.w&&y>=a.y&&y<=a.y+a.h)}
-cv.addEventListener("pointerdown",e=>{let b=hit(e);if(!b||!S.photos.length)return;S.sel=b.i;refresh();S.drag={id:e.pointerId,x:e.clientX,y:e.clientY,box:b};cv.setPointerCapture(e.pointerId);e.preventDefault()});
-cv.addEventListener("pointermove",e=>{let d=S.drag,p=chosen();if(!d||!p||d.id!==e.pointerId)return;let b=cv.getBoundingClientRect();p.dx+=(e.clientX-d.x)/b.width/d.box.w;p.dy+=(e.clientY-d.y)/b.height/d.box.h;d.x=e.clientX;d.y=e.clientY;render();e.preventDefault()});
-function end(e){if(S.drag&&S.drag.id===e.pointerId)S.drag=null}
-cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
+// Një gisht lëviz foton; dy gishta zmadhojnë ose zvogëlojnë foton e zgjedhur.
+const fingers=new Map();let pinch=null;
+function fingerGap(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
+cv.addEventListener("pointerdown",e=>{
+ if(!S.photos.length)return;
+ const b=hit(e);
+ if(!b&&fingers.size===0)return;
+ if(fingers.size===0){
+  S.sel=b.i;refresh();
+  S.drag={id:e.pointerId,x:e.clientX,y:e.clientY,box:b};
+ }
+ fingers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(fingers.size===2){
+  const ids=Array.from(fingers.keys()),a=fingers.get(ids[0]),z=fingers.get(ids[1]),p=chosen();
+  pinch={ids,distance:Math.max(1,fingerGap(a,z)),zoom:p.zoom,index:S.sel};
+  S.drag=null;
+ }
+ cv.setPointerCapture(e.pointerId);
+ e.preventDefault();
+});
+cv.addEventListener("pointermove",e=>{
+ if(!fingers.has(e.pointerId))return;
+ fingers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(pinch&&fingers.has(pinch.ids[0])&&fingers.has(pinch.ids[1])){
+  const a=fingers.get(pinch.ids[0]),z=fingers.get(pinch.ids[1]),p=S.photos[pinch.index];
+  if(p){
+   p.zoom=Math.max(1,Math.min(10,pinch.zoom*fingerGap(a,z)/pinch.distance));
+   const percent=Math.round(p.zoom*100);
+   $("photoZoom").value=percent;
+   $("photoZoomValue").textContent=percent+"%";
+   render();
+  }
+  e.preventDefault();return;
+ }
+ let d=S.drag,p=chosen();
+ if(!d||!p||d.id!==e.pointerId||fingers.size!==1)return;
+ let b=cv.getBoundingClientRect();
+ p.dx+=(e.clientX-d.x)/b.width/d.box.w;
+ p.dy+=(e.clientY-d.y)/b.height/d.box.h;
+ d.x=e.clientX;d.y=e.clientY;render();e.preventDefault();
+});
+function end(e){
+ fingers.delete(e.pointerId);
+ if(pinch&&pinch.ids.includes(e.pointerId))pinch=null;
+ if(S.drag&&S.drag.id===e.pointerId)S.drag=null;
+}
+cv.addEventListener("pointerup",end);
+cv.addEventListener("pointercancel",end);
+cv.addEventListener("lostpointercapture",end);
 $("fullBtn").onclick=()=>{$("editor").classList.add("full");requestAnimationFrame(render)};$("closeFull").onclick=()=>{$("editor").classList.remove("full");requestAnimationFrame(render)};
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("editor").classList.remove("full")});
 async function blob(type){if(!S.photos.length)throw Error("Shto fotot fillimisht.");
