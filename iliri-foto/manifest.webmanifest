@@ -9,10 +9,10 @@
   "theme_color": "#132e50",
   "icons": [
     {
-      "src": "./logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "./logo.jpg",
+      "sizes": "128x128",
+      "type": "image/jpeg",
+      "purpose": "any"
     }
   ]
 }
