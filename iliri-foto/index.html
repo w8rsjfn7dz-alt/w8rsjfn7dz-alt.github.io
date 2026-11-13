@@ -81,20 +81,28 @@ canvas{box-shadow:0 3px 11px #1939543b;border-radius:2px}
  .fast-title{margin-top:7px}
 }
 @media(max-width:370px){.quickbar .btn{font-size:13px}.zoomrow label{min-width:75px}.brand small{font-size:9px}.head h1{font-size:14px}}
-/* Hapësira e kolazhit zë gjithë ekranin e telefonit; formatet e tjera ruhen. */
+/* ILIRI FOTO — pamja e punës në telefon dhe pamja reale me ekran të plotë */
 @media(max-width:850px){
  #editor{margin-inline:-7px;border-radius:0}
  #editor .stagewrap{padding:3px}
- #editor .stage{height:100svh;min-height:0;border-radius:0}
+ #editor .stage{height:clamp(360px,76svh,740px);min-height:0;border-radius:3px}
  #editor .ratios{display:flex;overflow-x:auto;gap:6px}
  #editor .ratios button{flex:1 0 58px;min-width:58px}
  #editor .ratios button[data-aspect="screen"]{flex-basis:78px}
  #editor.full{margin:0}
- #editor.full .stage{height:auto;flex:1;min-height:0}
 }
 .full .stagewrap{flex:1;min-height:0;display:flex;flex-direction:column}
 .full .stage{height:auto;flex:1;min-height:0}
 .full .fastcontrols,.full .quickbar,.full .strip,.full>.head:nth-last-child(2){display:none}
+/* Kur zgjidhet Ekran i madh, vetë fotografia mbush të gjithë ekranin. */
+html.editor-full,html.editor-full body{overflow:hidden}
+#editor.full{height:100dvh;height:100svh;overflow:hidden;padding:0;border:0}
+#editor.full>.head:first-child{position:absolute;z-index:10;top:max(9px,env(safe-area-inset-top));left:auto;right:10px;padding:0;border:0;background:transparent;box-shadow:none}
+#editor.full>.head:first-child h1,#editor.full #fullBtn{display:none}
+#editor.full #closeFull{display:inline-block;padding:11px 13px;color:#fff;background:#132e50e8;border:1px solid #ffffff55;border-radius:12px;font-weight:700}
+#editor.full .stagewrap{flex:1;min-height:0;display:flex;flex-direction:column;padding:0!important}
+#editor.full .stage{height:auto!important;flex:1;min-height:0;border:0;border-radius:0}
+#editor.full .hint,#editor.full .zoomrow{display:none}
 
 </style></head><body>
 <header><div class="brand"><img src="./logo.jpg" alt="Logo ILIRI FOTO"><div><strong>ILIRI FOTO</strong><small>Bashko • Zmadho • Ruaj falas</small></div></div><button class="btn primary sm" id="addTop">+ Shto foto</button></header>
@@ -305,8 +313,9 @@ function end(e){
 cv.addEventListener("pointerup",end);
 cv.addEventListener("pointercancel",end);
 cv.addEventListener("lostpointercapture",end);
-$("fullBtn").onclick=()=>{$("editor").classList.add("full");requestAnimationFrame(render)};$("closeFull").onclick=()=>{$("editor").classList.remove("full");requestAnimationFrame(render)};
-document.addEventListener("keydown",e=>{if(e.key==="Escape")$("editor").classList.remove("full")});
+function toggleFull(isFull){$("editor").classList.toggle("full",isFull);document.documentElement.classList.toggle("editor-full",isFull);requestAnimationFrame(render)}
+$("fullBtn").onclick=()=>toggleFull(true);$("closeFull").onclick=()=>toggleFull(false);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")toggleFull(false)});
 async function blob(type){if(!S.photos.length)throw Error("Shto fotot fillimisht.");
  let d=dim();if(d.w<100||d.h<100||d.w>10000||d.h>10000||d.w*d.h>24000000)throw Error("Zgjidh një madhësi deri në 24 megapiksel për të mos bllokuar telefonin.");
  let c=document.createElement("canvas");c.width=d.w;c.height=d.h;let t=c.getContext("2d",{alpha:false});if(!t)throw Error("Mungon memoria për këtë madhësi.");
